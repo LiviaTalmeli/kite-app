@@ -1,0 +1,429 @@
+/* Components: Bottom Navigation, Profile, Feed, Modals, and Badges */
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+  height: 64px;
+  background: #FFFFFF;
+  border-top: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+  flex-shrink: 0;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.04);
+  z-index: 50;
+}
+
+.nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  color: var(--text-muted);
+  background: none;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 12px;
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.nav-item-icon {
+  font-size: 20px;
+  transition: transform var(--transition-spring);
+}
+
+.nav-item.active {
+  color: var(--kite-primary);
+}
+
+.nav-item.active .nav-item-icon {
+  transform: translateY(-2px) scale(1.1);
+}
+
+.nav-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  width: 14px;
+  height: 3px;
+  background: var(--kite-primary);
+  border-radius: 2px;
+}
+
+/* Feed & Community View */
+.feed-container {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+  background: #F8F9FE;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.feed-header-banner {
+  background: var(--kite-primary-gradient);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  color: #FFFFFF;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px var(--kite-primary-glow);
+}
+
+.feed-banner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.feed-banner-title {
+  font-size: 19px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.feed-banner-desc {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.feed-banner-btn {
+  background: #FFFFFF;
+  color: var(--kite-primary);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform var(--transition-fast);
+}
+
+.feed-banner-btn:hover {
+  transform: translateY(-1px);
+}
+
+.feed-banner-watermark {
+  position: absolute;
+  right: -15px;
+  bottom: -20px;
+  width: 120px;
+  height: 120px;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+/* Quick Topic Pills */
+.topic-pills-row {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.topic-pills-row::-webkit-scrollbar {
+  display: none;
+}
+
+.topic-pill {
+  background: #FFFFFF;
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.topic-pill.active {
+  background: #EEF2FF;
+  border-color: var(--kite-primary-light);
+  color: var(--kite-primary);
+}
+
+/* Feed Post Card */
+.feed-post-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 16px;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.feed-post-author {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.feed-author-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #EEF2FF;
+  color: var(--kite-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.feed-post-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.feed-post-body {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.feed-post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 10px;
+  border-top: 1px solid #F1F3F9;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.feed-interactions {
+  display: flex;
+  gap: 14px;
+}
+
+.feed-interact-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.feed-interact-btn:hover {
+  color: var(--kite-primary);
+}
+
+/* Profile View */
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 16px;
+  gap: 18px;
+  background: #F8F9FE;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.profile-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+.profile-avatar-wrap {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--kite-primary-gradient);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 12px;
+  box-shadow: 0 6px 20px var(--kite-primary-glow);
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.profile-username {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.profile-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.profile-section-card {
+  background: #FFFFFF;
+  border-radius: var(--radius-md);
+  padding: 18px;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+}
+
+.profile-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.setting-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-bottom: 1px solid #F4F6F9;
+}
+.setting-toggle-row:last-child {
+  border-bottom: none;
+}
+
+.setting-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.setting-label {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.setting-desc {
+  font-size: 11.5px;
+  color: var(--text-muted);
+}
+
+/* Switch UI */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #E2E6EF;
+  transition: .3s;
+  border-radius: 24px;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+input:checked + .slider {
+  background-color: var(--kite-primary);
+}
+input:checked + .slider:before {
+  transform: translateX(20px);
+}
+
+/* Logout Button */
+.logout-btn {
+  background: #FEE2E2;
+  color: #DC2626;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: background var(--transition-fast);
+}
+
+.logout-btn:hover {
+  background: #FCDCDC;
+}
+
+/* Toast Notifications */
+#toast-container {
+  position: absolute;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  pointer-events: none;
+  width: 90%;
+  max-width: 350px;
+}
+
+.toast {
+  background: rgba(30, 27, 51, 0.92);
+  backdrop-filter: blur(10px);
+  color: #FFFFFF;
+  padding: 10px 16px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: slideToast 0.3s ease-out;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+@keyframes slideToast {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

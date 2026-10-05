@@ -1,0 +1,24 @@
+{
+  "name": "kite-app",
+  "version": "1.0.0",
+  "description": "Aplicativo mobile acolhedor para pessoas neurodivergentes e com altas habilidades / superdotação (AH/SD, 2e)",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "kite",
+    "neurodiversity",
+    "giftedness",
+    "altas-habilidades",
+    "superdotacao",
+    "twice-exceptional",
+    "2e",
+    "pwa",
+    "mobile-app",
+    "ai-assistant"
+  ],
+  "author": "Kite Community",
+  "license": "MIT"
+}

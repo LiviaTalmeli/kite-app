@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Kite - Comunidade & Apoio para Mentes Neurodivergentes e Superdotação</title>
+  <meta name="description" content="Kite é o aplicativo acolhedor para pessoas neurodivergentes e com altas habilidades / superdotação (AH/SD, 2e), com chat em tempo real e assistente de IA especializado.">
+  <meta name="theme-color" content="#6358DC">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="assets/kite-logo.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/chat.css">
+  <link rel="stylesheet" href="css/ai.css">
+  <link rel="stylesheet" href="css/tools.css">
+  <link rel="stylesheet" href="css/components.css">
+</head>
+<body>
+
+  <!-- Desktop Controls: Toggle between phone simulation and full-width desktop view -->
+  <div class="desktop-controls">
+    <button id="toggle-simulator-view-btn" class="desktop-btn">
+      💻 Tela Cheia / Desktop
+    </button>
+  </div>
+
+  <!-- Mobile Simulator Frame -->
+  <div id="app-simulator">
+    <!-- Smartphone Dynamic Island / Notch -->
+    <div class="phone-island">
+      <div class="phone-island-sensor"></div>
+      <div class="phone-island-camera"></div>
+    </div>
+
+    <!-- Phone Status Bar -->
+    <div class="phone-status-bar">
+      <span id="phone-clock">12:00</span>
+      <div class="status-icons">
+        <span>5G</span>
+        <span>⚡ 100%</span>
+      </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div id="toast-container"></div>
+
+    <!-- App Container -->
+    <main id="app-container">
+
+      <!-- ================= 1. AUTH SCREEN (Matching User Screenshot) ================= -->
+      <section id="auth-screen" class="auth-container">
+        <div class="auth-header">
+          <div class="auth-logo-box">
+            <img src="assets/kite-logo.svg" alt="Kite Logo" width="90" height="105">
+          </div>
+          <h1 class="auth-title" id="auth-title-text">KITE</h1>
+          <p class="auth-subtitle" id="auth-subtitle-text">Venha fazer parte da nossa comunidade!</p>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form">
+          <div class="auth-input-group">
+            <input type="text" id="login-identifier" class="auth-input" placeholder="E-mail ou Nome de Usuário" required autocomplete="username">
+          </div>
+          <div class="auth-input-group">
+            <input type="password" id="login-password" class="auth-input" placeholder="••••" required autocomplete="current-password">
+          </div>
+
+          <button type="submit" class="auth-submit-btn" id="login-submit-btn">Entrar</button>
+          
+          <button type="button" class="auth-guest-btn" id="guest-login-btn">
+            ⚡ Explorar como Convidado (Demonstração Rápida)
+          </button>
+
+          <p class="auth-switch-text" id="auth-switch-btn">
+            Ainda não possui uma conta? <span>Cadastre-se</span>
+          </p>
+        </form>
+
+        <!-- Register Form (Initially Hidden) -->
+        <form id="register-form" class="auth-form" style="display: none;">
+          <div class="auth-input-group">
+            <label class="auth-input-label">Seu Nome ou Apelido</label>
+            <input type="text" id="reg-name" class="auth-input" placeholder="Ex: Ana Silva" required>
+          </div>
+          <div class="auth-input-group">
+            <label class="auth-input-label">Nome de Usuário (@)</label>
+            <input type="text" id="reg-username" class="auth-input" placeholder="Ex: @anasilva" required>
+          </div>
+          <div class="auth-input-group">
+            <label class="auth-input-label">E-mail</label>
+            <input type="email" id="reg-email" class="auth-input" placeholder="seuemail@exemplo.com" required>
+          </div>
+          <div class="auth-input-group">
+            <label class="auth-input-label">Criar Senha</label>
+            <input type="password" id="reg-password" class="auth-input" placeholder="Sua senha secreta" required>
+          </div>
+
+          <!-- Neurodivergent Customization Tags -->
+          <div class="auth-tags-section">
+            <span class="auth-tags-label">Como você se identifica no Kite?</span>
+            <div class="auth-tags-grid">
+              <span class="auth-tag-chip active" data-tag="Altas Habilidades / Superdotação">🧠 Altas Habilidades / SD</span>
+              <span class="auth-tag-chip" data-tag="Dupla Excepcionalidade (2e)">🧩 Dupla Excepcionalidade (2e)</span>
+              <span class="auth-tag-chip" data-tag="AuDHD (Autismo + TDAH)">⚡ AuDHD / TDAH</span>
+              <span class="auth-tag-chip" data-tag="Pesquisador / Especialista">🔬 Especialista / Pesquisador</span>
+              <span class="auth-tag-chip" data-tag="Aliado / Familiar">💜 Aliado / Familiar</span>
+            </div>
+          </div>
+
+          <button type="submit" class="auth-submit-btn">Concluir Cadastro</button>
+        </form>
+
+        <div class="auth-footer">
+          <p>Ao cadastrar você concorda com nossos</p>
+          <a href="#" onclick="alert('Termos de Uso do Kite: Respeito à neurodiversidade, proteção de dados privados e convivência inclusiva sem julgamentos.'); return false;">Termos e Condições</a>
+        </div>
+      </section>
+
+      <!-- ================= 2. CHAT VIEW ================= -->
+      <section id="view-chat" class="chat-container view-content" style="display: none;">
+        <!-- Header -->
+        <header class="chat-header">
+          <div class="chat-channel-info">
+            <div class="chat-channel-title" id="chat-channel-title">
+              <span>🪁</span> #comunidade-geral
+            </div>
+            <div class="chat-channel-desc" id="chat-channel-desc">
+              Espaço seguro para mentes com altas habilidades e neurodivergências
+            </div>
+          </div>
+          <div class="chat-header-actions">
+            <button class="chat-action-btn" id="infodump-toggle-btn" title="Ativar modo Infodump seguro">
+              📖
+            </button>
+          </div>
+        </header>
+
+        <!-- Channel Pills -->
+        <nav class="chat-nav-tabs" id="chat-channel-tabs"></nav>
+
+        <!-- Message Feed -->
+        <div class="chat-messages-feed" id="chat-messages-feed"></div>
+
+        <!-- Tone Indicator Quick Selector (Accessibility for Neurodivergent Communication) -->
+        <div class="tone-picker-bar">
+          <span style="font-size: 11px; color: var(--text-muted); align-self: center; margin-right: 4px;">Tom:</span>
+          <button class="tone-pill-btn" data-tone="/gen">/gen (Genuíno)</button>
+          <button class="tone-pill-btn" data-tone="/srs">/srs (Sério)</button>
+          <button class="tone-pill-btn" data-tone="/j">/j (Brincadeira)</button>
+          <button class="tone-pill-btn" data-tone="/info">/info (Fato/Info)</button>
+          <button class="tone-pill-btn" data-tone="/pos">/pos (Positivo)</button>
+          <button class="tone-pill-btn" data-tone="/vent">/vent (Desabafo)</button>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="chat-input-bar">
+          <input type="text" id="chat-input-field" class="chat-input-field" placeholder="Escreva na sua velocidade natural..." autocomplete="off">
+          <button id="chat-send-btn" class="chat-send-btn" aria-label="Enviar mensagem">
+            ➔
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= 3. AI ASSISTANT VIEW ================= -->
+      <section id="view-ai" class="ai-container view-content" style="display: none;">
+        <header class="ai-header">
+          <div class="ai-header-left">
+            <div class="ai-avatar-badge">
+              <img src="assets/kite-logo.svg" alt="Kite AI" width="24" height="24">
+            </div>
+            <div>
+              <div class="ai-header-title">Kite IA</div>
+              <div class="ai-header-subtitle">Especialista em Altas Habilidades & 2e</div>
+            </div>
+          </div>
+          <div class="ai-header-actions">
+            <button class="ai-icon-btn" id="ai-clear-btn" title="Reiniciar conversa">
+              🔄
+            </button>
+            <button class="ai-icon-btn" id="ai-config-key-btn" title="Configurar API Key">
+              ⚙️
+            </button>
+          </div>
+        </header>
+
+        <!-- Suggested Prompt Chips -->
+        <div class="ai-suggestions-tray">
+          <button class="ai-prompt-chip" data-query="O que são as sobre-excitabilidades de Dabrowski?">
+            🧠 Sobre-excitabilidades de Dabrowski
+          </button>
+          <button class="ai-prompt-chip" data-query="O que é Dupla Excepcionalidade (2e) e como identificá-la?">
+            🧩 O que é Dupla Excepcionalidade (2e)?
+          </button>
+          <button class="ai-prompt-chip" data-query="Como lidar com o burnout e o tédio crônico em pessoas com altas habilidades?">
+            🛡️ Burnout e Tédio Crônico
+          </button>
+          <button class="ai-prompt-chip" data-query="Como funciona a identificação tardia de altas habilidades em adultos?">
+            🔍 Identificação em Adultos
+          </button>
+          <button class="ai-prompt-chip" data-query="Como gerenciar o hiperfoco sem esquecer do autocuidado?">
+            ⚡ Hiperfoco & Dificuldade Executiva
+          </button>
+        </div>
+
+        <!-- AI Chat Messages Feed -->
+        <div class="ai-chat-feed" id="ai-chat-feed"></div>
+
+        <!-- AI Input Bar -->
+        <div class="ai-input-bar">
+          <input type="text" id="ai-input-field" class="ai-input-field" placeholder="Pergunte qualquer coisa sobre neurodiversidade..." autocomplete="off">
+          <button id="ai-send-btn" class="ai-send-btn" aria-label="Perguntar ao Kite IA">
+            ➔
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= 4. FEED / EXPLORE VIEW ================= -->
+      <section id="view-feed" class="feed-container view-content" style="display: none;">
+        <!-- Banner -->
+        <div class="feed-header-banner">
+          <div class="feed-banner-content">
+            <h2 class="feed-banner-title">Espaço Seguro Kite 🪁</h2>
+            <p class="feed-banner-desc">
+              Aqui, sua intensidade intelectual e sensibilidade emocional são reconhecidas e acolhidas.
+            </p>
+            <button class="feed-banner-btn" id="feed-banner-ai-btn">
+              <span>Perguntar ao Kite IA</span> ➔
+            </button>
+          </div>
+          <img src="assets/kite-logo.svg" class="feed-banner-watermark" alt="">
+        </div>
+
+        <!-- Topic Pills -->
+        <div class="topic-pills-row">
+          <button class="topic-pill active">🔥 Em Alta</button>
+          <button class="topic-pill">🧠 Neurociência</button>
+          <button class="topic-pill">🧩 2e (Superdotação + TDAH)</button>
+          <button class="topic-pill">⚡ Hiperfocos</button>
+          <button class="topic-pill">🌿 Regulação Sensorial</button>
+        </div>
+
+        <!-- Feed Posts -->
+        <article class="feed-post-card">
+          <div class="feed-post-author">
+            <div class="feed-author-avatar">BL</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 700;">Dra. Beatriz Lima</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Psicologia da Superdotação • Ontem</div>
+            </div>
+          </div>
+          <h3 class="feed-post-title">O mito de que pessoas superdotadas não precisam de apoio</h3>
+          <p class="feed-post-body">
+            Muitas vezes, a capacidade intelectual acima da média esconde o desenvolvimento assincrônico e uma dor existencial silenciosa. É essencial validar a intensidade com que o mundo é sentido.
+          </p>
+          <div class="feed-post-footer">
+            <div class="feed-interactions">
+              <button class="feed-interact-btn">💡 48 apoios</button>
+              <button class="feed-interact-btn">💬 14 reflexões</button>
+            </div>
+            <span>#sobre-excitabilidade</span>
+          </div>
+        </article>
+
+        <article class="feed-post-card">
+          <div class="feed-post-author">
+            <div class="feed-author-avatar">MR</div>
+            <div>
+              <div style="font-size: 13px; font-weight: 700;">Matheus Reis</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Comunidade Kite • Há 3 horas</div>
+            </div>
+          </div>
+          <h3 class="feed-post-title">Por que o tédio no trabalho dói fisicamente em pessoas com AH/SD?</h3>
+          <p class="feed-post-body">
+            Descobrir que a baixa dopamina gerada por tarefas puramente burocráticas causa exaustão real foi o maior alívio da minha vida. Você não é preguiçoso; seu cérebro precisa de profundidade e sentido!
+          </p>
+          <div class="feed-post-footer">
+            <div class="feed-interactions">
+              <button class="feed-interact-btn">⚡ 72 apoios</button>
+              <button class="feed-interact-btn">💬 31 reflexões</button>
+            </div>
+            <span>#carreira</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- ================= 5. TOOLS & SENSORY VIEW ================= -->
+      <section id="view-tools" class="tools-container view-content" style="display: none;">
+        <header class="tools-header">
+          <h2 class="tools-title">🧘 Foco & Sentidos</h2>
+          <p class="tools-subtitle">Ferramentas desenhadas para a regulação do sistema nervoso e fluxo cognitivo.</p>
+        </header>
+
+        <!-- Hyperfocus Flow Timer -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span style="font-weight: 700; font-size: 15px;">⚡ Temporizador de Hiperfoco</span>
+            <span class="tool-badge-pill">Modo Foco</span>
+          </div>
+
+          <div class="timer-modes">
+            <button class="timer-mode-btn active" data-mode="pomodoro">25m Clássico</button>
+            <button class="timer-mode-btn" data-mode="flow">50m Hiperfoco</button>
+            <button class="timer-mode-btn" data-mode="free">Contagem Livre</button>
+          </div>
+
+          <div class="timer-display" id="timer-display">25:00</div>
+
+          <div class="timer-controls">
+            <button class="timer-action-btn" id="timer-start-btn">Iniciar</button>
+            <button class="timer-action-btn secondary" id="timer-reset-btn">Resetar</button>
+          </div>
+        </div>
+
+        <!-- Soundscapes Synthesized via Web Audio API -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span style="font-weight: 700; font-size: 15px;">🎧 Paisagens Sonoras de Foco</span>
+            <span class="tool-badge-pill">Áudio Sintetizado</span>
+          </div>
+          <p style="font-size: 12px; color: var(--text-secondary);">
+            Gera frequências suaves no próprio navegador para mascarar distrações sem sobrecarga sensorial.
+          </p>
+          <div class="soundscape-grid">
+            <button class="sound-btn" data-sound="rain">
+              <span class="sound-icon">🌧️</span>
+              <span class="sound-name">Chuva Suave</span>
+            </button>
+            <button class="sound-btn" data-sound="pink">
+              <span class="sound-icon">🕊️</span>
+              <span class="sound-name">Ruído Rosa</span>
+            </button>
+            <button class="sound-btn" data-sound="binaural">
+              <span class="sound-icon">🧠</span>
+              <span class="sound-name">Gama 40Hz</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 4-7-8 Breathing Guide with Kite Visualizer -->
+        <div class="tool-card">
+          <div class="tool-card-header">
+            <span style="font-weight: 700; font-size: 15px;">🪁 Respiração Guiada da Pipa</span>
+            <span class="tool-badge-pill">Calmante 4-7-8</span>
+          </div>
+
+          <div class="breathing-box">
+            <div class="breathing-kite-visual" id="breathing-kite-visual">
+              <img src="assets/kite-logo.svg" alt="Pipa Respiratória">
+            </div>
+            <div class="breathing-label" id="breathing-label">Pronto para relaxar seu sistema nervoso?</div>
+            <div class="breathing-counter" id="breathing-counter">4-7-8</div>
+          </div>
+
+          <button class="timer-action-btn" id="breathing-toggle-btn" style="align-self: center;">
+            Começar Respiração Guiada
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= 6. PROFILE & SETTINGS VIEW ================= -->
+      <section id="view-profile" class="profile-container view-content" style="display: none;">
+        <div class="profile-card">
+          <div class="profile-avatar-wrap" id="profile-display-avatar">CR</div>
+          <h2 class="profile-name" id="profile-display-name">Clara Ramos</h2>
+          <div class="profile-username" id="profile-display-username">@clara_ramos</div>
+
+          <div class="profile-badges-row" id="profile-display-badges">
+            <span class="tool-badge-pill">Altas Habilidades / SD</span>
+            <span class="tool-badge-pill">Dupla Excepcionalidade (2e)</span>
+          </div>
+        </div>
+
+        <!-- Neurodivergent Experience Settings -->
+        <div class="profile-section-card">
+          <h3 class="profile-section-title">
+            <span>🌿</span> Preferências Sensoriais & Conforto
+          </h3>
+
+          <div class="setting-toggle-row">
+            <div class="setting-info">
+              <span class="setting-label">Modo Baixo Estímulo Sensorial</span>
+              <span class="setting-desc">Atenua contrastes intensos e reduz animações</span>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="setting-sensory-mode">
+              <span class="slider"></span>
+            </label>
+          </div>
+
+          <div class="setting-toggle-row">
+            <div class="setting-info">
+              <span class="setting-label">Tema Visual</span>
+              <span class="setting-desc">Escolha a paleta que melhor descansa seus olhos</span>
+            </div>
+            <select id="setting-theme-select" style="padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border-subtle); background: var(--bg-card-subtle);">
+              <option value="purple">Violeta Kite Original</option>
+              <option value="sage">Verde Sálvia Calmante</option>
+              <option value="dark">Veludo Noturno (Escuro)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Account Actions -->
+        <button class="logout-btn" id="logout-btn">
+          <span>🚪</span> Sair da Conta
+        </button>
+      </section>
+
+      <!-- ================= BOTTOM NAVIGATION BAR ================= -->
+      <nav class="bottom-nav">
+        <button class="nav-item" data-view="feed">
+          <span class="nav-item-icon">📰</span>
+          <span>Feed</span>
+        </button>
+        <button class="nav-item active" data-view="chat">
+          <span class="nav-item-icon">💬</span>
+          <span>Chat</span>
+        </button>
+        <button class="nav-item" data-view="ai">
+          <span class="nav-item-icon">🤖</span>
+          <span>Kite IA</span>
+        </button>
+        <button class="nav-item" data-view="tools">
+          <span class="nav-item-icon">🧘</span>
+          <span>Foco</span>
+        </button>
+        <button class="nav-item" data-view="profile">
+          <span class="nav-item-icon">👤</span>
+          <span>Perfil</span>
+        </button>
+      </nav>
+
+    </main>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/state.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

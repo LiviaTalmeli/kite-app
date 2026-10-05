@@ -1,0 +1,99 @@
+:root {
+  /* Kite Core Brand Colors (Matching user's purple visual identity) */
+  --kite-primary: #6358DC;
+  --kite-primary-dark: #4F43CB;
+  --kite-primary-light: #7E74E8;
+  --kite-primary-gradient: linear-gradient(180deg, #6C62E6 0%, #5343D1 100%);
+  --kite-primary-glow: rgba(99, 88, 220, 0.4);
+
+  /* Neuro-inclusive Harmonious Accent Colors */
+  --color-sage: #5EA389;
+  --color-amber: #EAA342;
+  --color-coral: #E76F6F;
+  --color-sky: #4FA8DE;
+  --color-lilac: #A78BFA;
+  
+  /* Surfaces & Backgrounds (Default Kite Purple Theme) */
+  --bg-app: #5748D4;
+  --bg-surface: #ffffff;
+  --bg-surface-glass: rgba(255, 255, 255, 0.12);
+  --bg-surface-glass-strong: rgba(255, 255, 255, 0.22);
+  --bg-card: #FFFFFF;
+  --bg-card-subtle: #F6F7FB;
+  --bg-input: rgba(255, 255, 255, 0.15);
+  --bg-input-focus: rgba(255, 255, 255, 0.25);
+  
+  /* Typography Colors */
+  --text-on-primary: #FFFFFF;
+  --text-on-primary-muted: rgba(255, 255, 255, 0.82);
+  --text-primary: #1F2438;
+  --text-secondary: #58607E;
+  --text-muted: #8E96B0;
+  
+  /* Borders & Dividers */
+  --border-glass: rgba(255, 255, 255, 0.25);
+  --border-subtle: #E6E9F2;
+  --border-focus: #6358DC;
+
+  /* Typography */
+  --font-main: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Outfit', Inter, Helvetica, Arial, sans-serif;
+  --font-mono: 'SF Mono', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  
+  /* Spacings & Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 8px 24px rgba(35, 25, 105, 0.12);
+  --shadow-lg: 0 16px 36px rgba(35, 25, 105, 0.18);
+  --shadow-glow: 0 0 30px rgba(126, 116, 232, 0.45);
+  
+  /* Transition speed */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Device frame dimensions for desktop simulation */
+  --phone-width: 412px;
+  --phone-height: 870px;
+}
+
+/* Sensory-Friendly Theme (Low Stimulation Mode) */
+body.sensory-friendly {
+  --kite-primary: #52667A;
+  --kite-primary-dark: #3F5062;
+  --kite-primary-light: #6C8197;
+  --kite-primary-gradient: linear-gradient(180deg, #5A6E82 0%, #465768 100%);
+  --kite-primary-glow: rgba(82, 102, 122, 0.2);
+  --bg-app: #465768;
+  --bg-surface-glass: rgba(255, 255, 255, 0.08);
+  --shadow-glow: none;
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Calming Sage Mode */
+body.theme-sage {
+  --kite-primary: #477A68;
+  --kite-primary-dark: #355C4E;
+  --kite-primary-light: #5E9B85;
+  --kite-primary-gradient: linear-gradient(180deg, #4F8673 0%, #366052 100%);
+  --kite-primary-glow: rgba(71, 122, 104, 0.3);
+  --bg-app: #386153;
+}
+
+/* Dark Velvet Mode */
+body.theme-dark {
+  --kite-primary: #6358DC;
+  --kite-primary-dark: #4338CA;
+  --kite-primary-light: #818CF8;
+  --kite-primary-gradient: linear-gradient(180deg, #1C1A32 0%, #111020 100%);
+  --bg-app: #0F0E1A;
+  --bg-card: #1B192E;
+  --bg-card-subtle: #25223D;
+  --text-primary: #F1F3FA;
+  --text-secondary: #B0B7D1;
+  --text-muted: #747C9E;
+  --border-subtle: #2C2849;
+}

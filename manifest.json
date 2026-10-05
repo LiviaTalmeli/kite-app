@@ -1,0 +1,18 @@
+{
+  "name": "Kite - Comunidade & Apoio Neurodivergente",
+  "short_name": "Kite",
+  "description": "Aplicativo mobile para pessoas neurodivergentes e com altas habilidades / superdotação, com chat comunitário e assistente de IA.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#6358DC",
+  "theme_color": "#6358DC",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./assets/kite-logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

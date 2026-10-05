@@ -1,0 +1,198 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  font-family: var(--font-main);
+  background-color: #17152B;
+  color: var(--text-primary);
+  overflow: hidden;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Background canvas for desktop viewing */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle at 50% 20%, #2A245C 0%, #0F0E1D 100%);
+  position: relative;
+}
+
+/* Phone Simulator wrapper */
+#app-simulator {
+  width: 100%;
+  height: 100%;
+  max-width: var(--phone-width);
+  max-height: var(--phone-height);
+  background: var(--bg-app);
+  border-radius: 40px;
+  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.65), 0 0 0 10px #1E1C33, 0 0 0 12px rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: all var(--transition-normal);
+}
+
+/* Fullscreen mode toggle on desktop */
+body.fullscreen-mode #app-simulator {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Native mobile devices: full screen always */
+@media (max-width: 768px) {
+  body {
+    background: var(--bg-app);
+    align-items: stretch;
+  }
+  #app-simulator {
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+  .desktop-controls {
+    display: none !important;
+  }
+}
+
+/* Smartphone Notch / Dynamic Island */
+.phone-island {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 26px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  pointer-events: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+.phone-island-camera {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #111E2E;
+  border: 1px solid #1C2E46;
+}
+.phone-island-sensor {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #0A141F;
+}
+
+/* Phone Status Bar */
+.phone-status-bar {
+  height: 44px;
+  padding: 12px 24px 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 999;
+  letter-spacing: -0.2px;
+  flex-shrink: 0;
+}
+.status-icons {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* App Viewport Container */
+#app-container {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  background: var(--kite-primary-gradient);
+}
+
+/* Main Scrollable Content Area */
+.view-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+.view-content::-webkit-scrollbar {
+  width: 4px;
+}
+.view-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+/* Desktop Floating Controls */
+.desktop-controls {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+  z-index: 9999;
+}
+.desktop-btn {
+  background: rgba(30, 27, 51, 0.85);
+  backdrop-filter: blur(12px);
+  color: #FFFFFF;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 10px 16px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  transition: all var(--transition-fast);
+}
+.desktop-btn:hover {
+  background: rgba(45, 40, 77, 0.95);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Buttons and Inputs Global */
+button, input, textarea, select {
+  font-family: inherit;
+  border: none;
+  outline: none;
+}
+button {
+  cursor: pointer;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
